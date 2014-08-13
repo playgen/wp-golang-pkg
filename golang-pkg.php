@@ -142,7 +142,7 @@ function golangpkg_menu_page_setup()
 	) );
 }
 
-add_action( 'init', function()
+function _golangpkg_init()
 {
 	global $wp_rewrite;
 	add_rewrite_tag( '%golang_pkg%', '(.+?)' );
@@ -152,9 +152,10 @@ add_action( 'init', function()
 		'index.php?golang_pkg=$matches[1]&p=-1',
 		'top'
 	);
-} );
+}
+add_action( 'init', '_golangpkg_init' );
 
-add_action( 'parse_query', function( $query )
+function _golangpkg_parse_query( $query )
 {
 	$slug = $query->get( 'golang_pkg' );
 	if ( empty( $slug ) )
@@ -178,25 +179,25 @@ add_action( 'parse_query', function( $query )
 <body></body></html>
 <?php
 	die;
-} );
+}
+add_action( 'parse_query', '_golangpkg_parse_query' );
 
-add_action( 'admin_menu', function()
+function _golangpkg_admin_menu()
 {
 	$id = add_management_page( "Go Packages", "Go Packages", 'manage_options', 'golang-pkgs', 'golangpkg_menu_page_render');
-	add_action( "load-{$id}", function()
-	{
-		golangpkg_menu_page_setup();
-	} );
-} );
-add_filter('set-screen-option', function( $status, $option, $value )
+	add_action( "load-{$id}", 'golangpkg_menu_page_setup' );
+}
+add_action( 'admin_menu', '_golangpkg_admin_menu' );
+function _golangpkg_set_screen_option( $status, $option, $value )
 {
 	if ( 'gpkgs_per_page' == $option )
 		return $value;
 	return $status;
-}, 10, 3);
+}
+add_filter( 'set-screen-option', '_golangpkg_set_screen_option', 10, 3);
 
 
-register_activation_hook( __FILE__, function()
+function _golangpkg_activation_hook()
 {
 	global $wpdb, $wp_rewrite;
 	$table_name = golangpkg_pkg_table();
@@ -213,4 +214,5 @@ CREATE TABLE IF NOT EXISTS $table_name (
 SQL;
 	$wpdb->query($q);
 	$wp_rewrite->flush_rules( false );
-} );
+}
+register_activation_hook( __FILE__, '_golangpkg_activation_hook' );
