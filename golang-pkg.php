@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Go Package Directory
-Description: Store your Go packages on your personal site
+Description: Store your Go packages on your WordPress site
 Author: Playgen
 Author URI: http://playgen.com
 Plugin URI: https://github.com/playgenhub/wp-golang-pkg
