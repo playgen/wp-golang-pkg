@@ -188,6 +188,7 @@ function _golangpkg_parse_query( $query )
 	$vcs = $pkg->type;
 	$url = $pkg->url;
 	$meta = "$here $vcs $url";
+	header('content-type: application/xhtml+xml; charset=utf-8');
 ?>
 <?xml version="1.0" encoding="UTF-8" ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
