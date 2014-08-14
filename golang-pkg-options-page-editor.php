@@ -48,7 +48,7 @@ DESC;
 		<!-- This table does not handle enable / disable -->
 		</table>
 		<?php submit_button(
-			__( 'Add Link', 'golang_pkg' ),
+			__( 'Add Package', 'golang_pkg' ),
 			'primary',
 			'submit'
 		); ?>
