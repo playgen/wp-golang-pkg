@@ -187,12 +187,12 @@ function _golangpkg_parse_query( $query )
 	$here = "{$_SERVER['HTTP_HOST']}/pkg/{$pkg->slug}";
 	$vcs = $pkg->type;
 	$url = $pkg->url;
-	$meta = "$here $vcs $url";
+	$meta = esc_attr( "$here $vcs $url" );
 	header('content-type: application/xhtml+xml; charset=utf-8');
 	echo '<?xml version="1.0" encoding="UTF-8" ?>';
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head><meta name="go-import" content="<?php echo $meta; ?>"></head>
+<head><meta name="go-import" content="<?php echo $meta; ?>"/><title></title></head>
 <body></body></html>
 <?php
 	die;
