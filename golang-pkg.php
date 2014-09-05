@@ -161,10 +161,10 @@ function golangpkg_menu_page_setup()
 function _golangpkg_init()
 {
 	global $wp_rewrite;
-	add_rewrite_tag( '%golang_pkg%', '(.+?)' );
+	add_rewrite_tag( '%golang_pkg%', '([^/]+)' );
 
 	add_rewrite_rule(
-		'pkg/(.+)/?$',
+		'pkg/([^/]+).*$',
 		'index.php?golang_pkg=$matches[1]&p=-1',
 		'top'
 	);
